@@ -35,6 +35,9 @@ las pruebas; nunca alimentan el cálculo ni la animación.
   proporcional a la intensidad. Permanecen desactivadas al entrar y respetan
   la preferencia del sistema de reducir movimiento.
 - Las flechas reales invierten las referencias cuando la corriente es negativa.
+  Por defecto se muestran las referencias de las ecuaciones. Al seleccionar
+  sentido real, las etiquetas usan |I| para distinguir magnitudes de variables
+  algebraicas. Cambiar la vista no redefine las variables de la resolución.
   La tabla mantiene el signo respecto a la referencia, independientemente del
   modo de flechas.
 - En las prácticas con dos barras, los elementos en serie se disponen en línea
@@ -74,6 +77,11 @@ y sentido real. Cada una declara sus referencias, desarrolla las ecuaciones y
 presenta fracciones exactas. Una comprobación desplegable sustituye la solución
 del circuito en el sistema reducido y la compara con esas fracciones. Las pruebas
 también detectan inversiones de signo y fuentes omitidas deliberadamente.
+Se comprueba además cada rama etiquetada de los 14 circuitos invirtiendo su
+referencia: deben conservarse todos los potenciales y corrientes físicas.
+El ejemplo 1 y la práctica 2 incluyen la derivación alternativa con corriente
+superior descendente e inferior hacia la derecha: I1 + J3 = J2,
+6I1 + 4J2 = 24 y 10 − 6I1 + 2J3 = 0; sus valores son 2, 3 y 1 A.
 
 El modelo cubre resistencias y fuentes ideales independientes de tensión en
 estado estacionario. No modela transitorios, capacitancias ni inductancias.

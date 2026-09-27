@@ -10,7 +10,7 @@ export default function CircuitDiagram({ circuitId }) {
   const result = useMemo(() => solveCircuit(circuit), [circuit]);
   const uid = useId();
   const [animate, setAnimate] = useState(false);
-  const [reference, setReference] = useState(false);
+  const [reference, setReference] = useState(true);
   const [showVoltages, setShowVoltages] = useState(false);
   const [selected, setSelected] = useState(null);
   const [zoom, setZoom] = useState(100);
@@ -48,7 +48,7 @@ export default function CircuitDiagram({ circuitId }) {
             <path d={path} className="circuit-wire" />
             {animate && Math.abs(current) > 1e-10 && <path d={path} className="circuit-flow" style={{ animationDirection: current < 0 ? 'reverse' : 'normal' }} />}
             {branch.components.map((component, i) => <CircuitElement key={i} component={component} x={start.x+ux*centers[i]} y={start.y+uy*centers[i]} angle={angle} />)}
-            {branch.label && Math.abs(current) > 1e-10 && <CurrentArrow x={(start.x+end.x)/2-uy*44} y={(start.y+end.y)/2+ux*44} angle={angle} reversed={!reference && current<0} label={branch.label} reference={reference} />}
+            {branch.label && Math.abs(current) > 1e-10 && <CurrentArrow x={(start.x+end.x)/2-uy*44} y={(start.y+end.y)/2+ux*44} angle={angle} reversed={!reference && current<0} label={reference ? branch.label : `|${branch.label}|`} reference={reference} />}
           </g>;
         })}
         {circuit.nodes.map(node => <g key={node.id}>
@@ -60,7 +60,7 @@ export default function CircuitDiagram({ circuitId }) {
         </g>)}
       </svg>
     </div>
-    <p className="circuit-legend">{reference ? 'Flechas discontinuas: referencias supuestas.' : 'Flechas verdes: sentido real.'} El signo de la tabla se refiere siempre al sentido supuesto. La animación indica dirección, no velocidad física.</p>
+    <p className="circuit-legend">{reference ? 'Flechas discontinuas: referencias de las ecuaciones. Una corriente negativa circula en sentido contrario.' : 'Flechas verdes: sentido real; |I| indica magnitud. Estas flechas no redefinen las variables de las ecuaciones: al invertir una referencia hay que cambiar su signo en todas las ecuaciones de nodos y mallas.'} El signo de la tabla se refiere siempre al sentido supuesto. La animación muestra el sentido real, no velocidad física.</p>
     <p className="circuit-mobile-hint">Desliza el circuito horizontalmente si no cabe en la pantalla.</p>
     <div className="circuit-table-scroll"><table className="circuit-results">
       <caption>Corrientes calculadas · selecciona una fila para resaltar su rama</caption>

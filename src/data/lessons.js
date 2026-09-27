@@ -11,6 +11,7 @@ const example1 = {
   steps: [
     step('En c, I1 e I2 entran e I3 sale. La malla superior se recorre b → e → f → c → b; la inferior, b → c → d → a → b.', raw`I_1+I_2-I_3=0`, raw`-4I_2-14+6I_1-10=0`, raw`10-6I_1-2I_3=0`),
     step('De la malla inferior: I3 = 5 − 3I1. Al sustituir en KCL: I2 = 5 − 4I1. La malla superior queda:', raw`6I_1-4(5-4I_1)=24`, raw`22I_1=44`),
+    step('Comprobación con otras referencias: si J2 baja por 4 Ω y J3 va hacia la derecha por 2 Ω, entonces J2 = −I2 y J3 = −I3. En b, J2 entra mientras I1 y J3 salen. Al subir por 4 Ω se obtiene +4J2; al volver de d a a por 2 Ω se obtiene +2J3. Deben cambiar las tres ecuaciones juntas:', raw`I_1+J_3=J_2`, raw`6I_1+4J_2=24`, raw`10-6I_1+2J_3=0`, raw`I_1=2\ \mathrm A,\quad J_2=3\ \mathrm A,\quad J_3=1\ \mathrm A`),
   ],
   unknowns: [current('I_1','middle',2),current('I_2','upperR',-3),current('I_3','lower',-1)],
   matrix: [[1,1,-1],[6,-4,0],[3,0,1]], rhs: [0,24,5],

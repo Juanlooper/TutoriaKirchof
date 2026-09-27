@@ -5,6 +5,35 @@ import { solveCircuit, formatCurrent } from '../src/lib/circuitSolver.js';
 
 const near = (actual, expected, tolerance = 1e-9) => assert.ok(Math.abs(actual - expected) < tolerance, `${actual} ≠ ${expected}`);
 for (const circuit of Object.values(circuits)) {
+  test(`${circuit.id}: cada cambio de referencia conserva potenciales y corrientes físicas`, () => {
+    const original = solveCircuit(circuit);
+    for (const branch of circuit.branches.filter(b => b.label)) {
+      const changed = structuredClone(circuit);
+      const reversed = changed.branches.find(b => b.id === branch.id);
+      [reversed.from, reversed.to] = [reversed.to, reversed.from];
+      reversed.components.reverse();
+      for (const component of reversed.components) {
+        if (component.type === 'battery') component.drop *= -1;
+      }
+      const result = solveCircuit(changed);
+      for (const node of circuit.nodes) near(result.voltages[node.id], original.voltages[node.id]);
+      for (const b of circuit.branches) near(result.currents[b.id], original.currents[b.id] * (b.id === branch.id ? -1 : 1));
+      near(result.maxKcl, 0); near(result.maxKvl, 0);
+    }
+  });
+}
+
+test('Ejemplo 1: referencias hacia abajo y derecha requieren cambiar KCL y ambas mallas', () => {
+  const { currents: i } = solveCircuit(circuits.example1);
+  const I1 = i.middle, J2 = -i.upperR, J3 = -i.lower;
+  near(I1, 2); near(J2, 3); near(J3, 1);
+  near(I1 + J3 - J2, 0);
+  near(6 * I1 + 4 * J2, 24);
+  near(10 - 6 * I1 + 2 * J3, 0);
+  // The proposed 22/7, 9/7, 31/7 do not satisfy even the stated lower loop.
+  assert.ok(Math.abs(3 * (22/7) + 31/7 - 5) > 1);
+});
+for (const circuit of Object.values(circuits)) {
   test(`${circuit.id}: soluciones de la guía y balances eléctricos`, () => {
     const result = solveCircuit(circuit);
     near(result.maxKcl, 0);
