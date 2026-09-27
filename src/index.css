@@ -143,6 +143,20 @@ p {
 .katex-display { overflow-x: auto; overflow-y: hidden; padding: .3rem 0; }
 .math-block { margin: 1rem 0; text-align: center; padding: 1rem; }
 .math-block .katex-display { margin: .4rem 0; }
+.solution-convention { padding: 1rem; border-left: 3px solid #7dd3fc; background: #16283f; border-radius: 6px; }
+.solution-convention p { margin-bottom: 0; }
+.solution-units { font-size: .85rem; color: #b7c6d9; }
+.solution-steps { padding-left: 1.35rem; }
+.solution-steps > li { margin-bottom: 1.5rem; }
+.solution-steps > li::marker { color: #7dd3fc; font-weight: 700; }
+.solution-results ul { padding-left: 1.1rem; margin-bottom: 0; }
+.solution-results li { margin: .8rem 0; }
+.solution-results li span { font-size: .85rem; line-height: 1.5; }
+.solution-conclusion { padding: 1rem; border-left: 3px solid #fbbf24; background: #1a2a40; }
+.solution-check { border: 1px solid #4b6972; border-radius: 8px; padding: 1rem; font-size: .85rem; }
+.solution-check summary { cursor: pointer; color: #6ee7b7; font-weight: 600; }
+.solution-check-error summary { color: #fda4af; }
+.circuit-lesson { scroll-margin-top: 110px; }
 @media (max-width: 1050px) { .circuit-lesson-grid { grid-template-columns: minmax(0, 1fr); } }
 @media (max-width: 768px) {
   .grid-cols-2, .grid-cols-3 { grid-template-columns: 1fr; }

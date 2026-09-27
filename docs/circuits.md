@@ -13,6 +13,10 @@ El PDF y sus imágenes no se necesitan para ejecutar la aplicación.
 - `src/components/ui/CircuitDiagram.jsx`: representación y controles accesibles.
 - `src/components/ui/CircuitElements.jsx`: símbolos SVG orientados con la rama.
 - `tests/circuits.test.js`: regresiones numéricas y comprobaciones de conservación.
+- `src/data/lessons.js`: desarrollo de las 14 resoluciones, sistemas reducidos
+  y soluciones exactas independientes del cálculo de ramas.
+- `src/lib/lessonMath.js`: sustitución de resultados en los sistemas reducidos.
+- `tests/lessons.test.js`: contraste entre ambos métodos y validación de fórmulas.
 
 No hay valores de corriente codificados en el renderizador. Se calculan desde
 las fuentes y resistencias. La tabla de respuestas usa el mismo catálogo.
@@ -64,6 +68,12 @@ las pruebas; nunca alimentan el cálculo ni la animación.
 tensión de cada rama y el balance global de potencia. Incluye regresiones para
 supernodos, unidades, fuentes opuestas, inversión de referencia y cambios de
 resistencia. No sustituye comparar una nueva topología con su figura original.
+
+Las resoluciones separan el valor algebraico de cada corriente de su magnitud
+y sentido real. Cada una declara sus referencias, desarrolla las ecuaciones y
+presenta fracciones exactas. Una comprobación desplegable sustituye la solución
+del circuito en el sistema reducido y la compara con esas fracciones. Las pruebas
+también detectan inversiones de signo y fuentes omitidas deliberadamente.
 
 El modelo cubre resistencias y fuentes ideales independientes de tensión en
 estado estacionario. No modela transitorios, capacitancias ni inductancias.

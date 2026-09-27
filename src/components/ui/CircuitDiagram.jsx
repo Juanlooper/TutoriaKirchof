@@ -3,12 +3,7 @@ import { circuits } from '../../data/circuits';
 import { formatCurrent, solveCircuit, componentLabel } from '../../lib/circuitSolver';
 import { CircuitElement, CurrentArrow } from './CircuitElements';
 import './CircuitDiagram.css';
-
-function nodeName(circuit, id) {
-  if (/^T\d$/.test(id)) return circuit.topLabel || 'S';
-  if (/^B\d$/.test(id)) return circuit.bottomLabel || '0';
-  return id;
-}
+import { nodeName } from '../../lib/lessonMath';
 
 export default function CircuitDiagram({ circuitId }) {
   const circuit = circuits[circuitId];
