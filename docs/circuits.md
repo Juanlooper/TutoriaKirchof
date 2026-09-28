@@ -1,87 +1,77 @@
-# Circuitos: fuente y convenciones
+# Circuitos originales y resolución
 
-Los 4 ejemplos y las 10 prácticas se contrastaron con las figuras de
-`Guia_resuelta_Leyes_de_Kirchhoff.pdf` proporcionada por el usuario.
-La propiedad `page` de cada circuito identifica la página de su figura.
-El PDF y sus imágenes no se necesitan para ejecutar la aplicación.
+La referencia es `Leyes de Kirchhoff, 326, oficial (1).docx`, proporcionado por
+el usuario. Las figuras de los cuatro problemas ilustrativos y las diez
+prácticas se extrajeron sin modificar sus bytes a `public/originales`.
+La figura original se presenta por defecto; el diagrama interactivo es un
+apoyo desplegable. Sus disposiciones pueden diferir, pero conservan las
+conexiones, componentes, valores y polaridades.
 
-## Organización
+## Correspondencia con el documento
 
-- `src/data/circuits.js`: nodos, conexiones, componentes y referencias de corriente.
-- `src/lib/circuitSolver.js`: análisis de ramas en corriente continua mediante
-  potenciales nodales y corrientes de rama, con eliminación gaussiana y pivoteo.
-- `src/components/ui/CircuitDiagram.jsx`: representación y controles accesibles.
-- `src/components/ui/CircuitElements.jsx`: símbolos SVG orientados con la rama.
-- `tests/circuits.test.js`: regresiones numéricas y comprobaciones de conservación.
-- `src/data/lessons.js`: desarrollo de las 14 resoluciones, sistemas reducidos
-  y soluciones exactas independientes del cálculo de ramas.
-- `src/lib/lessonMath.js`: sustitución de resultados en los sistemas reducidos.
-- `tests/lessons.test.js`: contraste entre ambos métodos y validación de fórmulas.
+| Problema | Imagen dentro de word/media |
+| --- | --- |
+| Ejemplo 1 | image6.png |
+| Ejemplo 2 | image7.jpeg |
+| Ejemplo 3 | image8.jpeg |
+| Ejemplo 4 | image9.png |
+| Práctica 1 | image10.png |
+| Práctica 2 | image11.png |
+| Práctica 3 | image12.jpeg |
+| Práctica 4 | image13.jpeg |
+| Práctica 5 | image14.jpeg |
+| Práctica 6 | image15.png |
+| Práctica 7 | image16.png |
+| Práctica 8 | image17.png |
+| Práctica 9 | image18.jpeg |
+| Práctica 10 | image19.jpeg |
 
-No hay valores de corriente codificados en el renderizador. Se calculan desde
-las fuentes y resistencias. La tabla de respuestas usa el mismo catálogo.
-Los valores `expected` del catálogo son referencias de la guía usadas solo por
-las pruebas; nunca alimentan el cálculo ni la animación.
+El enunciado textual del ejemplo 1 dice «tres generadores», mientras su figura
+muestra dos fuentes, de 14 V y 10 V. Se conserva el texto original y se resuelve
+el circuito dibujado, sin añadir una tercera fuente.
 
-## Convenciones
+## Procedimiento didáctico
 
-- Resistencias en ohmios, fuentes en voltios y corrientes internas en amperios.
-- `from → to` es la referencia positiva de cada corriente.
-- `drop` de una batería es `V(from) − V(to)` a través de esa fuente: positivo
-  significa placa larga y signo + hacia `from`; negativo, hacia `to`.
-- Una rama cumple `V(from) − V(to) = R·I + suma(drop)`.
-- El nodo `ground` fija el cero de potencial, sin imponer una tierra física.
-- Las animaciones muestran corriente convencional, no electrones ni velocidad
-  proporcional a la intensidad. Permanecen desactivadas al entrar y respetan
-  la preferencia del sistema de reducir movimiento.
-- Las flechas reales invierten las referencias cuando la corriente es negativa.
-  Por defecto se muestran las referencias de las ecuaciones. Al seleccionar
-  sentido real, las etiquetas usan |I| para distinguir magnitudes de variables
-  algebraicas. Cambiar la vista no redefine las variables de la resolución.
-  La tabla mantiene el signo respecto a la referencia, independientemente del
-  modo de flechas.
-- En las prácticas con dos barras, los elementos en serie se disponen en línea
-  para facilitar la lectura. Se conservan sus valores y polaridades; S y 0
-  nombran las barras cuando el enunciado no utiliza otros nombres.
+Todas las resoluciones usan corrientes de rama y el mismo orden:
 
-## Correcciones destacadas
+1. Declarar sentidos y aplicar la ley de nodos.
+2. Recorrer explícitamente cada malla.
+3. Escribir suma de voltajes de fuentes = suma de productos RI.
+4. Sustituir las relaciones de nodos y resolver por sustitución.
+5. Recuperar las corrientes y comprobar las ecuaciones.
 
-- Ejemplo 1 / práctica 2: fuente de 14 V y resistor de 4 Ω en la rama superior;
-  fuente de 10 V y resistor de 6 Ω en la central; I3 se supone de derecha a
-  izquierda por la resistencia inferior y circula realmente a la derecha.
-- Ejemplo 2: se conservan las fuentes de 12 V y 24 V opuestas, además de todas
-  las resistencias internas. Su contribución conjunta es una caída de 12 V.
-- Ejemplo 3: se restauran resistencias de 20, 10, 2, 3 y 5 Ω y el supernodo.
-- Ejemplo 4: se restauran las tres ventanas y los resistores de 5 y 10 Ω del
-  lado izquierdo, además de la fuente horizontal de 5 V.
-- Práctica 1: tres ramas de 6, 3 y 6 Ω y fuentes de 10, 6 y 4 V.
-- Práctica 3: se muestran mA, conservando A internamente.
-- Práctica 4: resistencias centrales de 5+1 Ω y derechas de 3+1 Ω separadas.
-- Práctica 5: mallas superior e inferior con resistor compartido de 4 Ω.
-- Práctica 6: se restauran A, B, C, D, E y la rama B–C de 10 Ω.
-- Práctica 7: I2 atraviesa el resistor central de 4 Ω e I3 el derecho de 6 Ω.
-- Práctica 8: I3 tiene referencia ascendente, coherente con su signo positivo.
-- Práctica 9: las fuentes de 10 y 20 V son verticales; los resistores de 1 y
-  2 Ω están en las ramas horizontales compartidas.
-- Práctica 10: fuente de 360 V invertida respecto de las de 40 y 80 V.
+Las fuentes son positivas al cruzarlas de − a + y negativas de + a −.
+En el lado derecho, RI es positivo a favor de la corriente supuesta y
+negativo en contra. Estos signos corresponden a la igualdad anterior.
+No se introducen supernodos, potenciales desconocidos ni corrientes de
+malla en los desarrollos. Las diferencias de corrientes de las ramas
+compartidas se deducen de los nodos antes de sustituirlas.
 
-## Verificación
+Se mantienen las flechas originales donde existen. En ejemplos sin flechas
+se declaran referencias de rama. El ejemplo 3 responde también α + β = 8;
+la práctica 3 incluye Vc − Vf = 900/13 V, como pide su enunciado.
 
-`npm test` comprueba las 14 soluciones, KCL en todos los nodos, la relación de
-tensión de cada rama y el balance global de potencia. Incluye regresiones para
-supernodos, unidades, fuentes opuestas, inversión de referencia y cambios de
-resistencia. No sustituye comparar una nueva topología con su figura original.
+## Código y comprobaciones
 
-Las resoluciones separan el valor algebraico de cada corriente de su magnitud
-y sentido real. Cada una declara sus referencias, desarrolla las ecuaciones y
-presenta fracciones exactas. Una comprobación desplegable sustituye la solución
-del circuito en el sistema reducido y la compara con esas fracciones. Las pruebas
-también detectan inversiones de signo y fuentes omitidas deliberadamente.
-Se comprueba además cada rama etiquetada de los 14 circuitos invirtiendo su
-referencia: deben conservarse todos los potenciales y corrientes físicas.
-El ejemplo 1 y la práctica 2 incluyen la derivación alternativa con corriente
-superior descendente e inferior hacia la derecha: I1 + J3 = J2,
-6I1 + 4J2 = 24 y 10 − 6I1 + 2J3 = 0; sus valores son 2, 3 y 1 A.
+- `src/data/circuits.js`: modelo eléctrico y referencias de corriente.
+- `src/data/standardLessons.js`: pasos y ecuaciones de las 14 resoluciones.
+- `src/data/lessons.js`: sistemas y fracciones para la comprobación.
+- `src/lib/circuitSolver.js`: motor numérico independiente para verificar.
+- `src/components/ui/CircuitLesson.jsx`: figura original y desarrollo.
+- `tests/derivations.test.js`: evalúa cada igualdad intermedia con las
+  corrientes del circuito, incluidas conversiones a mA y resultados derivados.
+- `tests/lessons.test.js`: sistemas, fracciones y sintaxis matemática.
+- `tests/circuits.test.js`: corrientes, nodos, tensiones, potencia e inversión
+  de las referencias de corriente.
 
-El modelo cubre resistencias y fuentes ideales independientes de tensión en
-estado estacionario. No modela transitorios, capacitancias ni inductancias.
+El motor interno conserva su análisis numérico nodal, separado del método
+didáctico solicitado. `from → to` define cada referencia positiva; `drop`
+es la caída de fuente en ese sentido. El nodo `ground` fija el cero de
+potencial del cálculo. O identifica la barra inferior cuando el original
+no la nombra; no representa una conexión física a tierra.
+
+Los valores `expected` solo se usan en pruebas. La aplicación calcula las
+corrientes desde el circuito. Las flechas reales invierten las negativas;
+las ecuaciones siempre conservan las referencias declaradas.
+
+Validación local: `npm test`, `npm run lint` y `npm run build`.

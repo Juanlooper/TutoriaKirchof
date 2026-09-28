@@ -28,6 +28,6 @@ export function exactMath(unknown, value) {
 
 export function nodeName(circuit, id) {
   if (/^T\d$/.test(id)) return circuit.topLabel || 'S';
-  if (/^B\d$/.test(id)) return circuit.bottomLabel || '0';
+  if (/^B\d$/.test(id)) return circuit.bottomLabel || 'O';
   return id;
 }

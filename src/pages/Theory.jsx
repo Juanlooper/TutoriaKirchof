@@ -1,91 +1,57 @@
-import React from 'react';
 import { motion } from 'framer-motion';
-import { MathBlock, MathInline } from '../components/ui/MathText';
+import { MathBlock } from '../components/ui/MathText';
 
-const Theory = () => {
-  return (
-    <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="animate-fade-in">
-      <h1 className="text-center mb-4">1. Teoría que debes dominar</h1>
-      <p className="text-center mb-4" style={{ color: '#94a3b8' }}>
-        El objetivo de las leyes de Kirchhoff es resolver circuitos que ya no pueden reducirse únicamente con asociaciones serie/paralelo. La idea central es combinar conservación de carga (nodos), conservación de energía (mallas) y la ley de Ohm.
-      </p>
-
-      <div className="glass-panel mb-4">
-        <h2>1.1 Conceptos: nodo, rama y malla</h2>
-        <ul>
-          <li className="mb-2"><strong>Nodo:</strong> punto donde se conectan varias ramas. Todos los puntos unidos por un conductor ideal pertenecen al mismo potencial.</li>
-          <li className="mb-2"><strong>Rama:</strong> elemento o conjunto de elementos conectados entre dos nodos. Una rama puede contener una fuente y varias resistencias en serie.</li>
-          <li className="mb-2"><strong>Malla:</strong> camino cerrado que regresa al punto de partida sin "saltar" ningún elemento del circuito.</li>
-        </ul>
-      </div>
-
-      <div className="glass-panel mb-4">
-        <h2>1.2 Fórmulas fundamentales</h2>
-        <MathBlock math="V = I \cdot R \quad \text{(Ley de Ohm)}" />
-        <MathBlock math="\sum I_{\text{entrantes}} = \sum I_{\text{salientes}} \iff \sum I = 0 \quad \text{(KCL: Ley de nodos)}" />
-        <MathBlock math="\sum \Delta V = 0 \quad \text{(KVL: Ley de mallas)}" />
-        <div className="glass-panel-light" style={{ color: 'var(--text-light)', marginTop: '1rem' }}>
-          <p><strong>Nota importante:</strong> Un resultado de corriente negativo NO significa que la solución esté mal: significa que la corriente real circula en sentido contrario al que se supuso inicialmente.</p>
-        </div>
-      </div>
-
-      <div className="glass-panel mb-4">
-        <h2>1.3 Cómo recorrer una malla sin perderte con los signos</h2>
-        <table className="styled-table">
-          <thead>
-            <tr>
-              <th>Elemento</th>
-              <th>Cómo lo atraviesas</th>
-              <th>Cambio de potencial ΔV</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Fuente</td>
-              <td>de <MathInline math="-" /> hacia <MathInline math="+" /></td>
-              <td className="text-success"><MathInline math="+\epsilon" /> (subida de potencial)</td>
-            </tr>
-            <tr>
-              <td>Fuente</td>
-              <td>de <MathInline math="+" /> hacia <MathInline math="-" /></td>
-              <td className="text-danger"><MathInline math="-\epsilon" /> (caída de potencial)</td>
-            </tr>
-            <tr>
-              <td>Resistencia</td>
-              <td>en el mismo sentido de la corriente</td>
-              <td className="text-danger"><MathInline math="-IR" /></td>
-            </tr>
-            <tr>
-              <td>Resistencia</td>
-              <td>en sentido contrario a la corriente</td>
-              <td className="text-success"><MathInline math="+IR" /></td>
-            </tr>
-          </tbody>
-        </table>
-        <p><strong>Procedimiento práctico:</strong> elige un sentido de recorrido (horario o antihorario), marca un punto de inicio y vuelve a ese mismo punto. No cambies de criterio a mitad de la malla. El sentido elegido es arbitrario; lo que importa es mantener los signos de forma coherente.</p>
-      </div>
-
-      <div className="glass-panel mb-4">
-        <h2>1.4 Resistor compartido por dos mallas</h2>
-        <p>Si asignas corrientes de malla <MathInline math="I_A" /> e <MathInline math="I_B" /> en sentido horario, normalmente atraviesan el resistor común en sentidos opuestos. En la ecuación de la malla A, la caída del resistor compartido es <MathInline math="R(I_A - I_B)" />. En la ecuación de la malla B es <MathInline math="R(I_B - I_A)" />.</p>
-        <MathBlock math="V_R = R(I_A - I_B) \quad \text{(visto desde la malla A)}" />
-      </div>
-
-      <div className="glass-panel mb-4">
-        <h2>1.5 Algoritmo seguro para examen</h2>
-        <ol>
-          <li className="mb-2">Identifica nodos y ramas. No confundas un cable continuo con varios nodos.</li>
-          <li className="mb-2">Marca la polaridad de cada fuente: la placa larga es el terminal positivo cuando no aparecen signos +/-.</li>
-          <li className="mb-2">Asigna una dirección a cada corriente desconocida o una corriente horaria por cada malla.</li>
-          <li className="mb-2">Escribe primero KCL en los nodos donde se dividen o se reúnen corrientes.</li>
-          <li className="mb-2">Recorre las mallas y escribe KVL usando la tabla de signos.</li>
-          <li className="mb-2">Resuelve el sistema de ecuaciones.</li>
-          <li className="mb-2">Interpreta signos negativos como cambio de sentido.</li>
-          <li className="mb-2">Comprueba al menos un nodo y una malla.</li>
-        </ol>
-      </div>
-    </motion.div>
-  );
-};
-
-export default Theory;
+export default function Theory() {
+  return <motion.div initial={{opacity:0,y:20}} animate={{opacity:1,y:0}}>
+    <h1 className="text-center mb-4">1. Nodos y mallas paso a paso</h1>
+    <p>En todos los ejercicios usaremos el mismo procedimiento: asignar corrientes a las ramas, aplicar la ley de nodos, recorrer cada malla y resolver por sustitución.</p>
+    <section className="glass-panel mb-4">
+      <h2>Nodo, rama y malla</h2>
+      <p>Un nodo es una unión de conductores. Los puntos unidos por cable ideal tienen el mismo potencial. Una rama conecta dos nodos y lleva una misma corriente por sus elementos en serie. Una malla es un recorrido cerrado que vuelve al punto de partida; elegimos las ventanas del circuito para plantear ecuaciones independientes.</p>
+      <p>Primero copia los valores, las conexiones y las polaridades del original. Si ya hay flechas de corriente, consérvalas. Si no hay, elige una por rama y mantenla durante toda la solución.</p>
+    </section>
+    <section className="glass-panel mb-4">
+      <h2>Primero la ley de nodos</h2>
+      <MathBlock math={String.raw`\sum I_{\text{entran}}=\sum I_{\text{salen}}`} />
+      <p>Por ejemplo, si I1 entra e I2 e I3 salen:</p>
+      <MathBlock math={String.raw`I_1=I_2+I_3`} />
+      <p>Despeja una corriente. Esta será la expresión que sustituirás en las ecuaciones de las mallas.</p>
+      <MathBlock math={String.raw`I_3=I_1-I_2`} />
+      <p>Si todas las flechas supuestas salen de un nodo, su suma algebraica es cero. Al resolver, alguna corriente será negativa y en realidad entrará.</p>
+    </section>
+    <section className="glass-panel mb-4">
+      <h2>Después la ley de mallas</h2>
+      <MathBlock math={String.raw`\sum V_{\text{fuentes}}=\sum V_{\text{resistencias}}`} />
+      <MathBlock math={String.raw`\sum \varepsilon=\sum RI`} />
+      <p>Escribe el recorrido completo antes de la ecuación. Coloca las fuentes a la izquierda y los productos RI a la derecha, con estos signos:</p>
+      <table className="styled-table">
+        <thead><tr><th>Elemento</th><th>Cómo lo recorres</th><th>Término en la ecuación</th></tr></thead>
+        <tbody>
+          <tr><td>Fuente</td><td>De − a +</td><td>+V a la izquierda</td></tr>
+          <tr><td>Fuente</td><td>De + a −</td><td>−V a la izquierda</td></tr>
+          <tr><td>Resistencia</td><td>A favor de la corriente supuesta</td><td>+RI a la derecha</td></tr>
+          <tr><td>Resistencia</td><td>En contra de la corriente supuesta</td><td>−RI a la derecha</td></tr>
+        </tbody>
+      </table>
+      <p>El signo de RI corresponde al lado derecho de esta igualdad. La placa larga de una batería indica el terminal positivo. Incluye también las resistencias internas cuando aparezcan.</p>
+    </section>
+    <section className="glass-panel mb-4">
+      <h2>Una resistencia compartida lleva una corriente de rama</h2>
+      <p>Usa la misma corriente de esa resistencia en las dos mallas. Si una malla la recorre a favor de su flecha, escribe +RI; si la otra la recorre en contra, escribe −RI. Si la ley de nodos dio I3 = I1 − I2, sustituye esa relación después de plantear las mallas.</p>
+      <MathBlock math={String.raw`RI_3=R(I_1-I_2)`} />
+      <p>La resta sale de la ecuación del nodo; no hace falta introducir nuevas corrientes de malla.</p>
+    </section>
+    <section className="glass-panel mb-4">
+      <h2>Resolver y comprobar</h2>
+      <ol>
+        <li>Escribe las relaciones de nodos y despeja las corrientes que vas a sustituir.</li>
+        <li>Recorre cada malla y escribe suma de fuentes = suma de RI.</li>
+        <li>Sustituye las relaciones de nodos y agrupa términos.</li>
+        <li>Despeja una incógnita y sustitúyela en otra ecuación hasta obtener una sola corriente.</li>
+        <li>Recupera las demás corrientes usando las mismas ecuaciones.</li>
+        <li>Comprueba los nodos y las mallas con los resultados sin redondear.</li>
+      </ol>
+      <p>Un resultado negativo indica que la corriente real va contra la flecha supuesta. Conserva el signo en las comprobaciones. Usa V, Ω y A durante el cálculo; para pasar de A a mA multiplica por 1000.</p>
+    </section>
+  </motion.div>;
+}

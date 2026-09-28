@@ -195,3 +195,14 @@ p {
 .styled-table tbody tr:nth-of-type(even) {
   background-color: rgba(30, 41, 59, 0.8);
 }
+
+.original-circuit { margin: 0 0 1.5rem; }
+.original-circuit figcaption { font-weight: 700; margin-bottom: 1rem; }
+.original-circuit img { display: block; width: 100%; height: auto; max-height: 500px; object-fit: contain; background: white; border-radius: 8px; }
+.original-circuit p { font-size: .9rem; color: var(--text-light); }
+@media (max-width: 1050px) {
+  .circuit-lesson-grid > div:last-child { order: -1; }
+}
+.lesson-index { display: flex; flex-wrap: wrap; gap: .75rem; margin: 1.5rem 0; }
+.lesson-index a { padding: .4rem .8rem; border: 1px solid #4b6972; border-radius: 6px; color: #b5e9ff; }
+.original-statement { margin-bottom: 1.5rem; }

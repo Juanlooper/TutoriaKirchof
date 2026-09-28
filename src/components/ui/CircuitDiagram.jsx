@@ -76,6 +76,6 @@ export default function CircuitDiagram({ circuitId }) {
     </table></div>
     <div className="circuit-selection" aria-live="polite">{active ? <><strong>{active.label}:</strong> {active.components.map(componentLabel).join(' + ')}. Diferencia de potencial de referencia: {(result.voltages[active.from]-result.voltages[active.to]).toFixed(4)} V.</> : 'Selecciona una corriente para identificar sus componentes y su diferencia de potencial.'}</div>
     <details className="circuit-verification"><summary>{checked ? '✓ Balance eléctrico comprobado' : 'Revisar balance eléctrico'}</summary><p>Se resuelven las conexiones y los valores de este diagrama. Error máximo de KCL: {result.maxKcl.toExponential(1)} A; de tensión de rama: {result.maxKvl.toExponential(1)} V. Balance de potencia: {Math.abs(result.power).toExponential(1)} W. Referencia: {nodeName(circuit,circuit.ground)} = 0 V.</p></details>
-    <p className="circuit-source">Referencia: guía resuelta, página {circuit.page}.{circuit.note && ` ${circuit.note}`}</p>
+    <p className="circuit-source">Referencia: Leyes de Kirchhoff, 326, oficial (1).docx. Diagrama auxiliar para identificar las corrientes.{circuit.note && ` ${circuit.note}`}</p>
   </figure>;
 }

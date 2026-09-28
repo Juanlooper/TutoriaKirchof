@@ -1,4 +1,4 @@
-// Figures transcribed from Guia_resuelta_Leyes_de_Kirchhoff.pdf.
+// Circuitos contrastados con las figuras del DOCX original del usuario.
 // Values are SI. A positive source drop places + at the branch's from end.
 const R = value => ({ type: 'resistor', value });
 const V = drop => ({ type: 'battery', value: Math.abs(drop), drop });
@@ -24,15 +24,15 @@ const example2 = parallel('example2','Ejemplo 2 · Fuentes y resistencias en ser
   {components:[R(8),V(-12),R(0.5),R(0.75),V(24)],label:'I2',expected:-0.8141},
 ], {note:'Se muestran también las resistencias internas y la fuente de 24 V del original. En la rama derecha las fuentes se oponen: 24 − 12 = 12 V; su resistencia total es 9.25 Ω.'});
 
-const example3 = circuit('example3','Ejemplo 3 · Supernodo',5,
+const example3 = circuit('example3','Ejemplo 3 · Nodos y mallas',5,
   [N('TL',120,90),N('T',400,90),N('TR',680,90),N('M',400,320),N('R',680,320),N('BL',120,550),N('G',400,550),N('BR',680,550)],
   [B('topWire','TL','T'),B('left','TL','BL',[R(20)],'I20'),B('groundWire','BL','G'),B('source20','T','M',[V(-20)]),B('middle','M','G',[R(10)],'I10'),B('top','T','TR',[R(2)],'I2Ω'),B('rightR','TR','R',[R(3)]),B('source10','M','R',[V(10)]),B('source5','R','BR',[V(-5)],'I5V',1/7),B('bottom','BR','G',[R(5)],'I5Ω',1/7)],'G',
-  {note:'Los nodos T, M, R y BR forman el supernodo. La corriente de la fuente de 5 V baja de R a BR y vuelve por la resistencia de 5 Ω hacia G.'});
+  {note:'La corriente de la fuente de 5 V baja de R a BR y vuelve por la resistencia de 5 Ω hacia G.'});
 
 const example4 = circuit('example4','Ejemplo 4 · Tres mallas',6,
   [N('TL',120,90),N('T',400,90),N('TR',680,90),N('L',120,320),N('M',400,320),N('BL',120,550),N('G',400,550),N('BR',680,550)],
-  [B('topLeft','TL','T',[R(20)],'M1',0.5424),B('topRight','T','TR',[R(7)],'M3',0.2112),B('leftTop','TL','L',[V(20),R(5)]),B('leftBottom','L','BL',[V(-30),R(10)]),B('sharedHorizontal','L','M',[R(8),V(5)],'I8h',-1.3471),B('centerTop','T','M',[R(2)],'I2',0.3312),B('centerBottom','M','G',[R(8)],'I8v',-1.0159),B('bottomLeft','G','BL',[R(10)],'M2',-0.8047),B('bottomRight','BR','G',[R(5)]),B('right','TR','BR',[V(-10)])],'G',
-  {note:'M1: superior izquierda; M2: inferior izquierda; M3: derecha. Las referencias de malla son horarias. Las corrientes compartidas se calculan por diferencia.'});
+  [B('topLeft','TL','T',[R(20)],'I1',0.5424),B('topRight','T','TR',[R(7)],'I3',0.2112),B('leftTop','TL','L',[V(20),R(5)]),B('leftBottom','L','BL',[V(-30),R(10)]),B('sharedHorizontal','L','M',[R(8),V(5)],'I8h',-1.3471),B('centerTop','T','M',[R(2)],'I2Ω',0.3312),B('centerBottom','M','G',[R(8)],'I8v',-1.0159),B('bottomLeft','G','BL',[R(10)],'I2',-0.8047),B('bottomRight','BR','G',[R(5)]),B('right','TR','BR',[V(-10)])],'G',
+  {note:'I1, I2 e I3 son corrientes de ramas exteriores. Las corrientes centrales se obtienen aplicando la ley de nodos.'});
 
 const practice1 = parallel('practice1','Práctica 1 · Tres ramas',8,[
   {components:[R(4),V(10),R(2)],up:true,label:'I1',expected:-11/12},
@@ -53,13 +53,13 @@ const practice4 = parallel('practice4','Práctica 4 · Resistencias en serie',11
 ]);
 const practice5 = circuit('practice5','Práctica 5 · Mallas superior e inferior',12,
   [N('TL',120,90),N('TR',680,90),N('L',120,320),N('R',680,320),N('BL',120,550),N('BR',680,550)],
-  [B('top','TL','TR',[R(3)],'M1',-28/9),B('leftTop','TL','L',[V(-20)]),B('rightTop','TR','R'),B('middle','L','R',[R(4)],'Icentro',8/3),B('leftBottom','BL','L',[R(2)],'M2',-4/9),B('rightBottom','R','BR',[R(4)]),B('bottom','BL','BR',[V(8)])],'BL');
+  [B('top','TL','TR',[R(3)],'I1',-28/9),B('leftTop','TL','L',[V(-20)]),B('rightTop','TR','R'),B('middle','L','R',[R(4)],'Icentro',8/3),B('leftBottom','BL','L',[R(2)],'I2',-4/9),B('rightBottom','R','BR',[R(4)]),B('bottom','BL','BR',[V(8)])],'BL');
 
-const practice6 = circuit('practice6','Práctica 6 · Análisis nodal',13,
+const practice6 = circuit('practice6','Práctica 6 · Nodos y tres mallas',13,
   [N('TL',120,90),N('TR',680,90),N('A',120,320),N('B',400,320),N('C',680,320),N('BL',120,550),N('D',400,550),N('E',680,550)],
   [B('leftTop','A','TL'),B('top','TL','TR',[R(20),V(-40)],'i6',90/29),B('rightTop','TR','C'),B('left','BL','A',[V(-100)],'i1',6),B('middleLeft','A','B',[R(5)],'i2',84/29),B('middleRight','B','C',[R(10)],'i4',22/29),B('middle','B','D',[R(40)],'i3',62/29),B('right','C','E',[R(15)],'i5',112/29),B('bottomLeft','BL','D'),B('bottom','D','E',[V(-20)])],'D');
 
-const practice7 = circuit('practice7','Práctica 7 · Supernodo B–C',15,
+const practice7 = circuit('practice7','Práctica 7 · Nodos y dos mallas',15,
   [N('A',120,90),N('B',400,90),N('TR',680,90),N('C',400,320),N('BL',120,550),N('G',400,550),N('BR',680,550)],
   [B('left','BL','A',[V(-6)]),B('top','A','B',[R(2)],'I1',-3/11),B('source','B','C',[V(12)]),B('center','C','G',[R(4)],'I2',-15/11),B('topRight','B','TR'),B('right','TR','BR',[R(6)],'I3',12/11),B('bottomLeft','BL','G'),B('bottomRight','G','BR')],'G');
 
@@ -71,7 +71,7 @@ const practice8 = parallel('practice8','Práctica 8 · Tres fuentes',16,[
 
 const practice9 = circuit('practice9','Práctica 9 · Tres mallas',17,
   [N('TL',120,90),N('T',400,90),N('TR',680,90),N('L',120,320),N('M',400,320),N('R',680,320),N('BL',120,550),N('BR',680,550)],
-  [B('topLeft','TL','T',[R(4)],'M1',-17/15),B('topRight','T','TR',[R(3)],'M2',86/15),B('leftTop','TL','L',[V(10)]),B('center','T','M',[V(20)]),B('middleLeft','L','M',[R(1)],'I1Ω',82/15),B('middleRight','M','R',[R(2)],'I2Ω',-7/5),B('rightTop','TR','R'),B('rightBottom','R','BR'),B('leftBottom','BL','L',[R(4)],'M3',13/3),B('bottom','BL','BR',[V(20)])],'BL');
+  [B('topLeft','TL','T',[R(4)],'I1',-17/15),B('topRight','T','TR',[R(3)],'I2',86/15),B('leftTop','TL','L',[V(10)]),B('center','T','M',[V(20)]),B('middleLeft','L','M',[R(1)],'I1Ω',82/15),B('middleRight','M','R',[R(2)],'I2Ω',-7/5),B('rightTop','TR','R'),B('rightBottom','R','BR'),B('leftBottom','BL','L',[R(4)],'I3',13/3),B('bottom','BL','BR',[V(20)])],'BL');
 
 const practice10 = parallel('practice10','Práctica 10 · Cuatro ramas',18,[
   {components:[R(200)],label:'I200',expected:-1},

@@ -14,7 +14,7 @@ const ErrorsAndAnswers = () => {
           <li className="mb-2"><strong>Tomar siempre la batería como positiva.</strong> El signo depende de si la atraviesas de - a + o de + a -.</li>
           <li className="mb-2">Usar <em>IR</em> sin revisar si recorres la resistencia a favor o en contra de la corriente.</li>
           <li className="mb-2">Sumar resistencias que no están realmente en serie porque existe un nodo con una ramificación entre ellas.</li>
-          <li className="mb-2">Olvidar que en un resistor compartido por dos mallas aparece la <strong>diferencia</strong> de corrientes.</li>
+          <li className="mb-2">Inventar una corriente distinta cada vez que recorres una resistencia compartida. Usa su misma corriente de rama y obtén las sustituciones con la ley de nodos.</li>
           <li className="mb-2"><strong>Borrar el signo negativo</strong> de una corriente. Ese signo contiene información física: la dirección real es la opuesta.</li>
           <li className="mb-2"><strong>No comprobar.</strong> Una sola KCL y una sola KVL verificadas suelen detectar casi todos los errores de signo.</li>
         </ul>
